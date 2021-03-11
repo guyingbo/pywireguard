@@ -8,7 +8,7 @@ from hashlib import blake2s
 
 from iofree import schema
 from nacl import bindings
-from nacl.public import Box, PrivateKey, PublicKey
+from nacl.public import PrivateKey, PublicKey
 
 _OFFSET = (2 ** 62) + 10
 
@@ -168,7 +168,7 @@ def DH_PUBKEY(private_key):
 
 
 def DH(private_key, public_key):
-    return Box(private_key, public_key).shared_key()
+    return bindings.crypto_scalarmult(bytes(private_key), bytes(public_key))
 
 
 def TAI64N():
